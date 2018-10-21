@@ -1,4 +1,11 @@
-export const allReaders = [
+export interface IReader {
+  readerId: number;
+  name: string;
+  weeklyReadingGoal: number;
+  totalMinutesRead: number;
+}
+
+export const allReaders: Array<IReader> = [
   {
     readerId: 1,
     name: 'Marie',
@@ -18,6 +25,13 @@ export const allReaders = [
     totalMinutesRead: 600
   }
 ];
+
+export interface IBook {
+  bookId: number;
+  title: string;
+  author: string;
+  publicationYear: number;
+}
 
 export const allBooks = [
   {
