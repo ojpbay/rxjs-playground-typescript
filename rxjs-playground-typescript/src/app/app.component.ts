@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { allBooks, allReaders, IBook, IReader } from './data';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, from, fromEvent } from 'rxjs';
 import { map, filter, tap, catchError } from 'rxjs/operators';
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   allBooks$: Observable<IBook>;
 
   ngOnInit(): void {
-    this.allBooks$ = Observable.create(subscriber => {
+    /* this.allBooks$ = Observable.create(subscriber => {
       for (const book of allBooks) {
         subscriber.next(book);
       }
@@ -26,6 +26,9 @@ export class AppComponent implements OnInit {
 
       return;
     });
+ */
+
+    this.allBooks$ = from<IBook>(allBooks);
 
     const filteredBooks$ = this.allBooks$.pipe(
       catchError(val => of(`I caught: ${val}`)),
