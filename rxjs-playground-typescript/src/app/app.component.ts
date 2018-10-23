@@ -12,7 +12,7 @@ import { map, filter, tap, catchError } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   title = 'rxjs-playground-typescript';
-  allBooks$: Observable<any>;
+  allBooks$: Observable<IBook>;
 
   ngOnInit(): void {
     this.allBooks$ = Observable.create(subscriber => {
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
 
     const filteredBooks$ = this.allBooks$.pipe(
       catchError(val => of(`I caught: ${val}`)),
-      filter(book => book.publicationYear > 1960),
+      filter(book => book.publicationYear > 1945),
       tap(newBook => console.log(`New book title: ${newBook.title}`))
     );
 
