@@ -15,25 +15,12 @@ export class AppComponent implements OnInit {
   allBooks$: Observable<IBook>;
 
   ngOnInit(): void {
-    /* this.allBooks$ = Observable.create(subscriber => {
-      for (const book of allBooks) {
-        subscriber.next(book);
-      }
-
-      setTimeout(() => {
-        subscriber.complete();
-      }, 200);
-
-      return;
-    });
- */
-
     this.allBooks$ = from<IBook>(allBooks);
 
     const filteredBooks$ = this.allBooks$.pipe(
-      catchError(val => of(`I caught: ${val}`)),
       filter(book => book.publicationYear > 1945),
-      tap(newBook => console.log(`New book title: ${newBook.title}`))
+      tap(newBook => console.log(`New book title: ${newBook.title}`)),
+      catchError(val => of(`I caught: ${val}`))
     );
 
     filteredBooks$.subscribe(bk => console.log(bk));
